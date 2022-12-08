@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import PullToRefresh from "../components/PullToRefresh";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -12,7 +13,8 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <p>Testing</p>
+        <button>RESET</button>
+        <PullToRefresh />
       </main>
     </div>
   );

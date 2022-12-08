@@ -1,0 +1,7 @@
+.loadingContainer {
+    display:none;
+}
+
+.loading {
+    display: block;
+}
