@@ -31,19 +31,19 @@ export default function PullToRefresh({ onRefresh, loading, children }) {
   };
 
   useEffect(() => {
-    refreshOPullAnchor.current.addEventListener("touchstart", pullStart);
-    //  refreshOPullAnchor.current.addEventListener("mousedown", pullStart);
-    refreshOPullAnchor.current.addEventListener("touchmove", pull);
-    //  refreshOPullAnchor.current.addEventListener("mousemove", pull);
-    refreshOPullAnchor.current.addEventListener("touchend", endPull);
-    // refreshOPullAnchor.current.addEventListener("mouseend", endPull);
+    window.addEventListener("touchstart", pullStart);
+    //  window.addEventListener("mousedown", pullStart);
+    window.addEventListener("touchmove", pull);
+    //  window.addEventListener("mousemove", pull);
+    window.addEventListener("touchend", endPull);
+    // window.addEventListener("mouseend", endPull);
     return () => {
-      refreshOPullAnchor.current.removeEventListener("touchstart", pullStart);
-      // refreshOPullAnchor.current.removeEventListener("mousedown", pullStart);
-      refreshOPullAnchor.current.removeEventListener("touchmove", pull);
-      //  refreshOPullAnchor.current.removeEventListener("mousemove", pull);
-      refreshOPullAnchor.current.removeEventListener("touchend", endPull);
-      //refreshOPullAnchor.current.removeEventListener("mouseend", endPull);
+      window.removeEventListener("touchstart", pullStart);
+      // window.removeEventListener("mousedown", pullStart);
+      window.removeEventListener("touchmove", pull);
+      //  window.removeEventListener("mousemove", pull);
+      window.removeEventListener("touchend", endPull);
+      //window.removeEventListener("mouseend", endPull);
     };
   });
   return (
