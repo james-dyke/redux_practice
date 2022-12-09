@@ -5,7 +5,6 @@ import Character from "../components/Character";
 import styles from "../styles/Home.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters } from "../store/actions";
-import Image from "next/image";
 
 export default function Home() {
   const characterResults = useSelector((state) => state.quoteOfTheDay);
@@ -31,8 +30,8 @@ export default function Home() {
           onRefresh={handleRefresh}
           loading={characterResults.loading}
         >
-          {characters.map((character) => {
-            return <Character data={character} />;
+          {characters.map((character, index) => {
+            return <Character data={character} key={index} />;
           })}
         </PullToRefresh>
       </main>
