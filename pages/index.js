@@ -1,9 +1,22 @@
 import Head from "next/head";
-import Image from "next/image";
+import axios from "axios";
 import PullToRefresh from "../components/PullToRefresh";
+import Character from "../components/Character";
 import styles from "../styles/Home.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { getCharacters } from "../store/actions";
+import Image from "next/image";
 
 export default function Home() {
+  const characterResults = useSelector((state) => state.quoteOfTheDay);
+  const dispatch = useDispatch();
+
+  const handleRefresh = () => {
+    dispatch(getCharacters(axios));
+  };
+
+  const characters = characterResults.characters ?? [];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +27,14 @@ export default function Home() {
 
       <main className={styles.main}>
         <button>RESET</button>
-        <PullToRefresh />
+        <PullToRefresh
+          onRefresh={handleRefresh}
+          loading={characterResults.loading}
+        >
+          {characters.map((character) => {
+            return <Character data={character} />;
+          })}
+        </PullToRefresh>
       </main>
     </div>
   );
