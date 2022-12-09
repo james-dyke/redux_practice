@@ -16,10 +16,11 @@ export const getCharacters = (axios) => (dispatch, getState) => {
   //   if (state.quoteOfTheDay.quote) {
   //     return;
   //   }
-  dispatch(setLoadingState({ loading: true }));
+
   axios
     .get("https://rickandmortyapi.com/api/character")
     .then(({ data }) => {
+      dispatch(setLoadingState({ loading: true }));
       const res = data.results;
       const nextPage = data.info.next;
       const urlParams = new URLSearchParams(nextPage);

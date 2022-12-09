@@ -1,3 +1,6 @@
+* {
+  overscroll-behavior-y: contain;
+}
 html,
 body {
   padding: 0;
