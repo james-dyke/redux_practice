@@ -30,6 +30,8 @@ const charactersReducer = (state = {}, { type, payload }) => {
       return {
         loading: payload.loading,
       };
+    case types.RESET:
+      return [];
     default:
       return state;
   }

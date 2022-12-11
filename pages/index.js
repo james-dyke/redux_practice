@@ -3,12 +3,17 @@ import axios from "axios";
 import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
 import styles from "../styles/Home.module.css";
+import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { getCharacters } from "../store/actions";
+import { getCharacters, resetCharacters } from "../store/actions";
 
 export default function Home() {
   const characterResults = useSelector((state) => state.quoteOfTheDay);
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(resetCharacters());
+  };
 
   const handleRefresh = () => {
     dispatch(getCharacters(axios));
@@ -25,7 +30,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <button>RESET</button>
+        <Button onClick={handleClick} variant="contained">
+          Reset
+        </Button>
         <PullToRefresh
           onRefresh={handleRefresh}
           loading={characterResults.loading}
