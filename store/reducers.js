@@ -5,11 +5,13 @@ import * as types from "./types";
 const charactersReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case types.SET_CHARACTERS:
+      console.log("set characters");
       return {
         nextPage: payload.nextPage,
         currentPage: payload.currentPage,
         characters: payload.results,
         loading: payload.loading,
+        character: undefined,
       };
     case types.SET_CHARACTER_BY_ID:
       return {

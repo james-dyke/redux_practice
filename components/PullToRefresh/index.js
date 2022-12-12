@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from "./Pullrefresh.module.css";
 
 export default function PullToRefresh({ onRefresh, loading, children }) {
-  // add and remove event listeners
   const [startPoint, setStartPoint] = useState(0);
   const [pullChange, setPullChange] = useState();
   const [isMouseClicked, setIsMouseClicked] = useState(false);

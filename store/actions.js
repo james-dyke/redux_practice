@@ -63,7 +63,7 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
 
   if (state.data.characters) {
     const results = state.data.characters;
-    const result = results.find((element) => element.id == id) ?? "";
+    const result = results.find((element) => element.id == id);
 
     dispatch(
       setCharaterById({
