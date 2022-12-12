@@ -13,6 +13,7 @@ const charactersReducer = (state = {}, { type, payload }) => {
       };
     case types.SET_CHARACTER_BY_ID:
       return {
+        characters: payload.results,
         character: payload.result,
       };
     case types.LOADING:
@@ -26,9 +27,8 @@ const charactersReducer = (state = {}, { type, payload }) => {
   }
 };
 
-// COMBINED REDUCERS
-const reducers = {
+const reducer = {
   data: charactersReducer,
 };
 
-export default combineReducers(reducers);
+export default combineReducers(reducer);

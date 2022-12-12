@@ -41,8 +41,8 @@ export default function Home() {
           {characters.map((character, index) => {
             const link = index + 1;
             return (
-              <Link href={"character/" + link.toString()}>
-                <Character data={character} key={index}></Character>
+              <Link key={index} href={"character/" + link.toString()}>
+                <Character data={character}></Character>
               </Link>
             );
           })}

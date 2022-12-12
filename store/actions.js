@@ -20,7 +20,6 @@ export const getCharacters = (axios) => (dispatch, getState) => {
   const state = getState();
 
   if (state.data.characters) {
-    console.log(state.data, "state.data");
     dispatch(
       setCharaters({
         currentPage: state.currentPage,
@@ -68,23 +67,24 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
 
     dispatch(
       setCharaterById({
+        results: results,
         result: result,
+        currentPage: state.data.currentPage,
+        nextPage: state.data.nextPage,
       })
     );
   }
 
-  if (Object.keys(state.data).length === 0) {
+  if (Object.keys(state.data).length === 0 && id) {
     axios
       .get("https://rickandmortyapi.com/api/character")
       .then(({ data }) => {
         const res = data.results;
-        const nextPage = data.info.next;
-        const urlParams = new URLSearchParams(nextPage);
-        const currentPage = urlParams.get("page") ?? 1;
         const result = res.find((element) => element.id == id);
 
         dispatch(
           setCharaterById({
+            results: res,
             result: result,
           })
         );
