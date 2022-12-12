@@ -2,13 +2,8 @@
   padding: 0 2rem;
 }
 
-.resultsContainer {
- overflow:scroll;
- height:100%;
-}
 
 .main {
-  
   padding: 0;
   flex: 1;
   display: flex;
