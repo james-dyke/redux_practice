@@ -10,49 +10,94 @@ export const setLoadingState = (payload) => ({
   payload,
 });
 
+export const setCharaterById = (payload) => ({
+  type: types.SET_CHARACTER_BY_ID,
+  payload,
+});
+
 // GET QUOTE OF THE DAY
 export const getCharacters = (axios) => (dispatch, getState) => {
   const state = getState();
-  //   if (state.quoteOfTheDay.quote) {
-  //     return;
-  //   }
 
-  axios
-    .get("https://rickandmortyapi.com/api/character")
-    .then(({ data }) => {
-      dispatch(setLoadingState({ loading: true }));
-      const res = data.results;
-      const nextPage = data.info.next;
-      const urlParams = new URLSearchParams(nextPage);
-      const currentPage = urlParams.get("page") ?? 1;
-      dispatch(
-        setCharaters({
-          currentPage: currentPage,
-          nextPage: nextPage,
-          results: res,
-          loading: false,
-        })
-      );
-    })
-    .catch((error) => {
-      let message =
-        "There was an error getting the rick and morti character information";
-      if (error.response) {
-        message = `Server responded with status ${error.response.status}`;
-      }
-      dispatch(
-        setQuote({
-          quote: message,
-        })
-      );
-    });
+  if (state.data.characters) {
+    console.log(state.data, "state.data");
+    dispatch(
+      setCharaters({
+        currentPage: state.currentPage,
+        nextPage: state.nextPage,
+        results: state.data.characters,
+        loading: false,
+      })
+    );
+  }
+
+  if (Object.keys(state.data).length === 0) {
+    axios
+      .get("https://rickandmortyapi.com/api/character")
+      .then(({ data }) => {
+        dispatch(setLoadingState({ loading: true }));
+        const res = data.results;
+        const nextPage = data.info.next;
+        const urlParams = new URLSearchParams(nextPage);
+        const currentPage = urlParams.get("page") ?? 1;
+        dispatch(
+          setCharaters({
+            currentPage: currentPage,
+            nextPage: nextPage,
+            results: res,
+            loading: false,
+          })
+        );
+      })
+      .catch((error) => {
+        let message =
+          "There was an error getting the rick and morti character information";
+        if (error.response) {
+          message = `Server responded with status ${error.response.status}`;
+        }
+      });
+  }
 };
 
-// INCREMENT COUNTER BY 1
-export const incrementCount = () => ({ type: types.INCREMENT });
+export const getCharacterById = (axios, id) => (dispatch, getState) => {
+  const state = getState();
 
-// DECREMENT COUNTER BY 1
-export const decrementCount = () => ({ type: types.DECREMENT });
+  if (state.data.characters) {
+    const results = state.data.characters;
+    const result = results.find((element) => element.id == id) ?? "";
+
+    dispatch(
+      setCharaterById({
+        result: result,
+      })
+    );
+  }
+
+  if (Object.keys(state.data).length === 0) {
+    axios
+      .get("https://rickandmortyapi.com/api/character")
+      .then(({ data }) => {
+        const res = data.results;
+        const nextPage = data.info.next;
+        const urlParams = new URLSearchParams(nextPage);
+        const currentPage = urlParams.get("page") ?? 1;
+        const result = res.find((element) => element.id == id);
+
+        dispatch(
+          setCharaterById({
+            result: result,
+          })
+        );
+      })
+      .catch((error) => {
+        let message =
+          "There was an error getting the rick and morti character information";
+        if (error.response) {
+          message = `Server responded with status ${error.response.status}`;
+        }
+      });
+  }
+};
 
 // RESET CHARACTERS
 export const resetCharacters = () => ({ type: types.RESET });

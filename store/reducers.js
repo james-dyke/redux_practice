@@ -2,21 +2,6 @@
 import { combineReducers } from "redux";
 import * as types from "./types";
 
-// COUNTER REDUCER
-const counterReducer = (state = 0, { type }) => {
-  switch (type) {
-    case types.INCREMENT:
-      return state + 1;
-    case types.DECREMENT:
-      return state - 1;
-    case types.RESET:
-      return 0;
-    default:
-      return state;
-  }
-};
-
-// QUOTE OF THE DAY
 const charactersReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case types.SET_CHARACTERS:
@@ -25,6 +10,10 @@ const charactersReducer = (state = {}, { type, payload }) => {
         currentPage: payload.currentPage,
         characters: payload.results,
         loading: payload.loading,
+      };
+    case types.SET_CHARACTER_BY_ID:
+      return {
+        character: payload.result,
       };
     case types.LOADING:
       return {
@@ -39,8 +28,7 @@ const charactersReducer = (state = {}, { type, payload }) => {
 
 // COMBINED REDUCERS
 const reducers = {
-  counter: counterReducer,
-  quoteOfTheDay: charactersReducer,
+  data: charactersReducer,
 };
 
 export default combineReducers(reducers);

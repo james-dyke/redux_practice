@@ -4,11 +4,12 @@ import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
 import styles from "../styles/Home.module.css";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters, resetCharacters } from "../store/actions";
 
 export default function Home() {
-  const characterResults = useSelector((state) => state.quoteOfTheDay);
+  const characterResults = useSelector((state) => state.data);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -38,7 +39,12 @@ export default function Home() {
           loading={characterResults.loading}
         >
           {characters.map((character, index) => {
-            return <Character data={character} key={index} />;
+            const link = index + 1;
+            return (
+              <Link href={"character/" + link.toString()}>
+                <Character data={character} key={index}></Character>
+              </Link>
+            );
           })}
         </PullToRefresh>
       </main>
