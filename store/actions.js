@@ -15,7 +15,34 @@ export const setCharaterById = (payload) => ({
   payload,
 });
 
-// GET QUOTE OF THE DAY
+export const getNextPageCharacters = (axios) => (dispatch, getState) => {
+  const state = getState();
+  axios
+    .get(state.data.nextPage)
+    .then(({ data }) => {
+      dispatch(setLoadingState({ loading: true }));
+      const res = data.results;
+      const nextPage = data.info.next;
+      const urlParams = new URLSearchParams(nextPage);
+      const currentPage = urlParams.get("page") ?? 1;
+      dispatch(
+        setCharaters({
+          currentPage: currentPage,
+          nextPage: nextPage,
+          results: res,
+          loading: false,
+        })
+      );
+    })
+    .catch((error) => {
+      let message =
+        "There was an error getting the rick and morti character information";
+      if (error.response) {
+        message = `Server responded with status ${error.response.status}`;
+      }
+    });
+};
+
 export const getCharacters = (axios) => (dispatch, getState) => {
   const state = getState();
 

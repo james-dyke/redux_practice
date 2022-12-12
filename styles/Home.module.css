@@ -2,6 +2,11 @@
   padding: 0 2rem;
 }
 
+.resultsContainer {
+ overflow:scroll;
+ height:100%;
+}
+
 .main {
   
   padding: 0;
