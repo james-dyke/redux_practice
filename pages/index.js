@@ -72,7 +72,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (errorMessage !== undefined) {
+    if (errorMessage) {
       setOpen(true);
     }
   }, [errorMessage]);
