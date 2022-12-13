@@ -51,7 +51,7 @@ export default function Home() {
 
   const [open, setOpen] = React.useState(false);
   const characters = characterResults.characters ?? [];
-  const errorMessage = characterResults.message ?? "";
+  const errorMessage = characterResults.message ?? undefined;
 
   useEffect(() => {
     const handleScroll = (event) => {
