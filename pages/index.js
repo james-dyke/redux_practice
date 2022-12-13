@@ -52,6 +52,7 @@ export default function Home() {
   const [open, setOpen] = React.useState(false);
   const characters = characterResults.characters ?? [];
   const errorMessage = characterResults.message ?? undefined;
+  console.log(characterResults, "characterResults");
 
   useEffect(() => {
     const handleScroll = (event) => {
@@ -71,10 +72,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (errorMessage) {
+    if (errorMessage !== undefined) {
       setOpen(true);
     }
-  }, [errorMessage, setOpen]);
+  }, [errorMessage]);
 
   return (
     <div className={styles.container}>
