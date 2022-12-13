@@ -26,6 +26,7 @@ const charactersReducer = (state = {}, { type, payload }) => {
       };
     case types.LOADING:
       return {
+        ...state,
         loading: payload.loading,
         loadingNextPage: payload.loadingNextPage,
       };

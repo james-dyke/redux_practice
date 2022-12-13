@@ -71,20 +71,18 @@ export default function PullToRefresh({
     };
   });
 
-  console.log(nextPageLoading, "nextPageLoading");
   return (
     <div>
-      {loading ||
-        (nextPageLoading && (
-          <Image
-            className={styles.loader}
-            priority
-            src="/images/spinner.gif"
-            height={50}
-            width={50}
-            alt=""
-          />
-        ))}
+      {loading && (
+        <Image
+          className={styles.loader}
+          priority
+          src="/images/spinner.gif"
+          height={50}
+          width={50}
+          alt=""
+        />
+      )}
       <p className={styles.title} style={{ marginTop: pullChange || "0px" }}>
         Pull to load data
       </p>

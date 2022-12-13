@@ -5,7 +5,7 @@ import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
 import styles from "../styles/Home.module.css";
 import Button from "@mui/material/Button";
-import Link from "next/link";
+import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCharacters,
@@ -61,16 +61,26 @@ export default function Home() {
           <PullToRefresh
             onRefresh={handleRefresh}
             loading={characterResults.loading}
-            nextPageLoading={characterResults.loadingNextPage}
           >
             {characters.map((character, index) => {
-              const link = character.id;
               return (
-                <Link key={index} href={"character/" + link.toString()}>
-                  <Character data={character}></Character>
-                </Link>
+                <Character
+                  key={index}
+                  data={character}
+                  id={character.id}
+                ></Character>
               );
             })}
+            {characterResults.loadingNextPage && (
+              <Image
+                className={styles.loader}
+                priority
+                src="/images/spinner.gif"
+                height={50}
+                width={50}
+                alt="loading spinner"
+              />
+            )}
           </PullToRefresh>
         </div>
       </main>

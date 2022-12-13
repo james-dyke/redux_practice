@@ -30,13 +30,13 @@ export const getNextPageCharacters = (axios) => (dispatch, getState) => {
       const nextPage = data.info.next;
       const urlParams = new URLSearchParams(nextPage);
       const currentPage = urlParams.get("page") ?? 1;
+
       dispatch(
         setNextPageCharaters({
           currentPage: currentPage,
           nextPage: nextPage,
           results: res,
           loading: false,
-          loadingNextPage: false,
         })
       );
     })
@@ -109,8 +109,6 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
   }
 
   if (Object.keys(state.data).length === 0 && id) {
-    //const page = id /
-    //get page number from id formula here
     axios
       .get("https://rickandmortyapi.com/api/character/" + id)
       .then(({ data }) => {
