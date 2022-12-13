@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { getCharacterById } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +11,13 @@ const CharacterBio = () => {
   const characterResult = useSelector((state) => state.data.character);
   const dispatch = useDispatch();
   const { id } = router.query;
-  dispatch(getCharacterById(axios, id));
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    dispatch(getCharacterById(axios, id));
+  }, [dispatch, id]);
+
+  console.log(characterResult, "characterResult");
 
   return characterResult !== undefined ? (
     <CharacterBiography data={characterResult} />

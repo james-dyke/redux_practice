@@ -5,6 +5,11 @@ export const setCharaters = (payload) => ({
   payload,
 });
 
+export const setNextPageCharaters = (payload) => ({
+  type: types.SET_NEXT_PAGE_CHARACTERS,
+  payload,
+});
+
 export const setLoadingState = (payload) => ({
   type: types.LOADING,
   payload,
@@ -17,20 +22,21 @@ export const setCharaterById = (payload) => ({
 
 export const getNextPageCharacters = (axios) => (dispatch, getState) => {
   const state = getState();
+  dispatch(setLoadingState({ loadingNextPage: true }));
   axios
     .get(state.data.nextPage)
     .then(({ data }) => {
-      dispatch(setLoadingState({ loading: true }));
       const res = data.results;
       const nextPage = data.info.next;
       const urlParams = new URLSearchParams(nextPage);
       const currentPage = urlParams.get("page") ?? 1;
       dispatch(
-        setCharaters({
+        setNextPageCharaters({
           currentPage: currentPage,
           nextPage: nextPage,
           results: res,
           loading: false,
+          loadingNextPage: false,
         })
       );
     })
@@ -103,16 +109,14 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
   }
 
   if (Object.keys(state.data).length === 0 && id) {
+    //const page = id /
+    //get page number from id formula here
     axios
-      .get("https://rickandmortyapi.com/api/character")
+      .get("https://rickandmortyapi.com/api/character/" + id)
       .then(({ data }) => {
-        const res = data.results;
-        const result = res.find((element) => element.id == id);
-
         dispatch(
           setCharaterById({
-            results: res,
-            result: result,
+            result: data,
           })
         );
       })

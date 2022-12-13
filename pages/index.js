@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
@@ -22,6 +22,7 @@ export default function Home() {
   };
 
   const handleRefresh = () => {
+    dispatch(resetCharacters());
     dispatch(getCharacters(axios));
   };
 
@@ -60,6 +61,7 @@ export default function Home() {
           <PullToRefresh
             onRefresh={handleRefresh}
             loading={characterResults.loading}
+            nextPageLoading={characterResults.loadingNextPage}
           >
             {characters.map((character, index) => {
               const link = character.id;
