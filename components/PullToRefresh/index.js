@@ -55,14 +55,14 @@ export default function PullToRefresh({
   };
 
   useEffect(() => {
-    window.addEventListener("touchstart", pullStart);
+    window.addEventListener("touchstart", pullStart, { passive: false });
     window.addEventListener("mousedown", mouseDown);
     window.addEventListener("touchmove", pull);
     window.addEventListener("mousemove", mouseMove);
     window.addEventListener("touchend", endPull);
     window.addEventListener("mouseup", mouseEnd);
     return () => {
-      window.removeEventListener("touchstart", pullStart);
+      window.removeEventListener("touchstart", pullStart, { passive: false });
       window.removeEventListener("mousedown", mouseDown);
       window.removeEventListener("touchmove", pull);
       window.removeEventListener("mousemove", mouseMove);
