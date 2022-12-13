@@ -49,7 +49,9 @@ export default function Home() {
     dispatch(getCharacters(axios));
   };
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const characters = characterResults.characters ?? [];
+  const errorMessage = characterResults.message ?? "";
 
   useEffect(() => {
     const handleScroll = (event) => {
@@ -69,7 +71,11 @@ export default function Home() {
     };
   }, []);
 
-  const characters = characterResults.characters ?? [];
+  useEffect(() => {
+    if (errorMessage) {
+      setOpen(true);
+    }
+  }, [errorMessage, setOpen]);
 
   return (
     <div className={styles.container}>
@@ -83,7 +89,7 @@ export default function Home() {
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Note archived"
+        message={errorMessage}
         action={action}
       />
       <main className={styles.main}>

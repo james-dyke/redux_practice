@@ -30,6 +30,10 @@ const charactersReducer = (state = {}, { type, payload }) => {
         loading: payload.loading,
         loadingNextPage: payload.loadingNextPage,
       };
+    case types.SET_TOAST_ERROR_MESSAGE:
+      return {
+        message: payload.errorMsg,
+      };
     case types.RESET:
       return {};
     default:

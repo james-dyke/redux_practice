@@ -20,11 +20,15 @@ export const setCharaterById = (payload) => ({
   payload,
 });
 
+export const setToastErrorMessage = (payload) => ({
+  type: types.SET_TOAST_ERROR_MESSAGE,
+  payload,
+});
+
 export const getNextPageCharacters = (axios) => (dispatch, getState) => {
   const state = getState();
   dispatch(setLoadingState({ loadingNextPage: true }));
-  axios
-    .get(state.data.nextPage)
+  axios(state.data.nextPage)
     .then(({ data }) => {
       const res = data.results;
       const nextPage = data.info.next;
@@ -43,6 +47,11 @@ export const getNextPageCharacters = (axios) => (dispatch, getState) => {
     .catch((error) => {
       let message =
         "There was an error getting the rick and morti character information";
+      dispatch(
+        setToastErrorMessage({
+          errorMsg: message,
+        })
+      );
       if (error.response) {
         message = `Server responded with status ${error.response.status}`;
       }
@@ -84,6 +93,11 @@ export const getCharacters = (axios) => (dispatch, getState) => {
       .catch((error) => {
         let message =
           "There was an error getting the rick and morti character information";
+        dispatch(
+          setToastErrorMessage({
+            errorMsg: message,
+          })
+        );
         if (error.response) {
           message = `Server responded with status ${error.response.status}`;
         }
