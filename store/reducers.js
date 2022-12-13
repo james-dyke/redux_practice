@@ -15,7 +15,7 @@ const charactersReducer = (state = {}, { type, payload }) => {
       return {
         nextPage: payload.nextPage,
         currentPage: payload.currentPage,
-        characters: payload.results,
+        characters: [...state.characters, ...payload.results],
         loading: payload.loading,
         loadingNextPage: payload.loadingNextPage,
       };

@@ -60,7 +60,6 @@ export default function Home() {
         document.body.offsetHeight
       ) {
         dispatch(getNextPageCharacters(axios));
-        window.scrollTo(0, 0);
       }
     };
 
