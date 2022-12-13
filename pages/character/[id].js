@@ -12,10 +12,7 @@ const CharacterBio = () => {
   const dispatch = useDispatch();
   const { id } = router.query;
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    dispatch(getCharacterById(axios, id));
-  }, [dispatch, id]);
+  dispatch(getCharacterById(axios, id));
 
   console.log(characterResult, "characterResult");
 
