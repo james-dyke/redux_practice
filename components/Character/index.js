@@ -3,7 +3,6 @@ import styles from "./Character.module.css";
 import Link from "next/link";
 
 export default function Character({ data, id, showLoader }) {
-  console.log(showLoader, "showLoader");
   return (
     <>
       {showLoader && (

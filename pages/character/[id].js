@@ -14,8 +14,6 @@ const CharacterBio = () => {
 
   dispatch(getCharacterById(axios, id));
 
-  console.log(characterResult, "characterResult");
-
   return characterResult !== undefined ? (
     <CharacterBiography data={characterResult} />
   ) : (
