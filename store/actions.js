@@ -45,15 +45,14 @@ export const getNextPageCharacters = (axios) => (dispatch, getState) => {
       );
     })
     .catch((error) => {
-      let message =
-        "There was an error getting the rick and morti character information";
-      dispatch(
-        setToastErrorMessage({
-          errorMsg: message,
-        })
-      );
       if (error.response) {
-        message = `Server responded with status ${error.response.status}`;
+        let message =
+          "There was an error getting the rick and morti character information";
+        dispatch(
+          setToastErrorMessage({
+            errorMsg: message,
+          })
+        );
       }
     });
 };
@@ -93,15 +92,14 @@ export const getCharacters = (axios) => (dispatch, getState) => {
         );
       })
       .catch((error) => {
-        let message =
-          "There was an error getting the rick and morti character information";
-        dispatch(
-          setToastErrorMessage({
-            errorMsg: message,
-          })
-        );
         if (error.response) {
-          message = `Server responded with status ${error.response.status}`;
+          let message =
+            "There was an error getting the rick and morti character information";
+          dispatch(
+            setToastErrorMessage({
+              errorMsg: message,
+            })
+          );
         }
       });
   }
@@ -135,10 +133,12 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
         );
       })
       .catch((error) => {
-        let message =
-          "There was an error getting the rick and morti character information";
         if (error.response) {
-          message = `Server responded with status ${error.response.status}`;
+          let message =
+            "There was an error getting the rick and morti character information";
+          if (error.response) {
+            message = `Server responded with status ${error.response.status}`;
+          }
         }
       });
   }
