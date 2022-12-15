@@ -58,6 +58,7 @@ export default function Home() {
   const debouncedChangeHandler = useCallback(debounce(changeHandler, 500), []);
 
   const [open, setOpen] = React.useState(false);
+  const [loadingNextPage, setLoadingNextPage] = React.useState(false);
   const characters = characterResults.characters ?? [];
   const errorMessage = characterResults.message ?? undefined;
 
@@ -68,7 +69,11 @@ export default function Home() {
         document.body.offsetHeight
       ) {
         if (!characterResults.loading) {
+          setLoadingNextPage(true);
           debouncedChangeHandler();
+          if (characterResults.loading) {
+            setLoadingNextPage(false);
+          }
         }
       }
     };
@@ -78,7 +83,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [setLoadingNextPage]);
 
   useEffect(() => {
     dispatch(clearCharacter());
@@ -112,7 +117,18 @@ export default function Home() {
             loading={characterResults.loading}
           >
             {characters.map((character, index) => {
-              return (
+              const isLastCellAndLoading =
+                characters.length - 1 === index && loadingNextPage;
+              return isLastCellAndLoading ? (
+                <Image
+                  className={styles.loader}
+                  priority
+                  src="/images/spinner.gif"
+                  height={50}
+                  width={50}
+                  alt="loading spinner"
+                />
+              ) : (
                 <Character
                   key={index}
                   data={character}
@@ -120,16 +136,6 @@ export default function Home() {
                 ></Character>
               );
             })}
-            {characterResults.loadingNextPage && (
-              <Image
-                className={styles.loader}
-                priority
-                src="/images/spinner.gif"
-                height={50}
-                width={50}
-                alt="loading spinner"
-              />
-            )}
           </PullToRefresh>
         </div>
       </main>
