@@ -53,7 +53,6 @@ export default function Home() {
   const [open, setOpen] = React.useState(false);
   const characters = characterResults.characters ?? [];
   const errorMessage = characterResults.message ?? undefined;
-  console.log(characterResults, "characterResults");
 
   useEffect(() => {
     const handleScroll = (event) => {
@@ -61,7 +60,9 @@ export default function Home() {
         window.innerHeight + window.pageYOffset >=
         document.body.offsetHeight
       ) {
-        dispatch(getNextPageCharacters(axios));
+        if (!characterResults.loading) {
+          dispatch(getNextPageCharacters(axios));
+        }
       }
     };
 
