@@ -10,8 +10,7 @@ export default function CharacterBio({ data }) {
           priority
           src={data.image}
           alt={data.name}
-          layout="fill"
-          objectFit="contain"
+          fill
         />
         <p className={styles.title}>{data.name}</p>
         <p className={styles.text}>
