@@ -14,6 +14,7 @@ import {
   getCharacters,
   getNextPageCharacters,
   resetCharacters,
+  clearCharacter,
 } from "../store/actions";
 
 export default function Home() {
@@ -72,6 +73,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    dispatch(clearCharacter());
     if (errorMessage) {
       setOpen(true);
     }

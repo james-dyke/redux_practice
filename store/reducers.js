@@ -24,6 +24,11 @@ const charactersReducer = (state = {}, { type, payload }) => {
         characters: payload.results,
         character: payload.result,
       };
+    case types.CLEAR_CHARACTER:
+      return {
+        ...state,
+        character: {},
+      };
     case types.LOADING:
       return {
         ...state,

@@ -144,5 +144,8 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
   }
 };
 
+// CLEAR CHARACTER
+export const clearCharacter = () => ({ type: types.CLEAR_CHARACTER });
+
 // RESET CHARACTERS
 export const resetCharacters = () => ({ type: types.RESET });
