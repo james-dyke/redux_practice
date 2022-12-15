@@ -45,7 +45,7 @@ export const getNextPageCharacters = (axios) => (dispatch, getState) => {
       );
     })
     .catch((error) => {
-      if (error.response) {
+      if (error.code) {
         let message =
           "There was an error getting the rick and morti character information";
         dispatch(
@@ -92,7 +92,7 @@ export const getCharacters = (axios) => (dispatch, getState) => {
         );
       })
       .catch((error) => {
-        if (error.response) {
+        if (error.code) {
           let message =
             "There was an error getting the rick and morti character information";
           dispatch(
@@ -133,12 +133,10 @@ export const getCharacterById = (axios, id) => (dispatch, getState) => {
         );
       })
       .catch((error) => {
-        if (error.response) {
+        if (error.code) {
           let message =
             "There was an error getting the rick and morti character information";
-          if (error.response) {
-            message = `Server responded with status ${error.response.status}`;
-          }
+          message = `Server responded with error code ${error.code}`;
         }
       });
   }
