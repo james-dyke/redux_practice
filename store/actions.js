@@ -66,7 +66,6 @@ export const getCharacters = (axios) => (dispatch, getState) => {
         currentPage: state.currentPage,
         nextPage: state.nextPage,
         results: state.data.characters,
-        result: undefined,
         loading: false,
       })
     );
@@ -86,7 +85,6 @@ export const getCharacters = (axios) => (dispatch, getState) => {
             currentPage: currentPage,
             nextPage: nextPage,
             results: res,
-            result: undefined,
             loading: false,
           })
         );

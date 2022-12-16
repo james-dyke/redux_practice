@@ -68,12 +68,8 @@ export default function Home() {
         window.innerHeight + window.pageYOffset >=
         document.body.offsetHeight
       ) {
-        if (!characterResults.loading) {
-          setLoadingNextPage(true);
+        if (!characterResults.loadingNextPage) {
           debouncedChangeHandler();
-          if (characterResults.loading) {
-            setLoadingNextPage(false);
-          }
         }
       }
     };
@@ -83,7 +79,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [setLoadingNextPage]);
+  }, [characterResults.loadingNextPage]);
 
   useEffect(() => {
     dispatch(clearCharacter());
@@ -118,7 +114,8 @@ export default function Home() {
           >
             {characters.map((character, index) => {
               const isLastCellAndLoading =
-                characters.length - 1 === index && loadingNextPage;
+                characters.length - 1 === index &&
+                characterResults.loadingNextPage;
               return isLastCellAndLoading ? (
                 <Image
                   className={styles.loader}
