@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
@@ -19,6 +19,7 @@ import {
 } from "../store/actions";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
   const characterResults = useSelector((state) => state.data);
   const dispatch = useDispatch();
 
@@ -30,11 +31,13 @@ export default function Home() {
     setOpen(false);
   };
 
+  const handleRefresh = () => {
+    dispatch(resetCharacters());
+    dispatch(getCharacters(axios));
+  };
+
   const action = (
     <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
       <IconButton
         size="small"
         aria-label="close"
@@ -46,13 +49,6 @@ export default function Home() {
     </React.Fragment>
   );
 
-  const handleRefresh = () => {
-    dispatch(resetCharacters());
-    dispatch(getCharacters(axios));
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const [loadingNextPage, setLoadingNextPage] = React.useState(false);
   const characters = characterResults.characters ?? [];
   const errorMessage = characterResults.message ?? undefined;
 
@@ -118,6 +114,7 @@ export default function Home() {
                   height={50}
                   width={50}
                   alt="loading spinner"
+                  key={index}
                 />
               ) : (
                 <Character
