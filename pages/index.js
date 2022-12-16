@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { Fragment, useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
@@ -10,7 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector, useDispatch } from "react-redux";
-import debounce from "lodash.debounce";
+
 import {
   getCharacters,
   getNextPageCharacters,
@@ -51,12 +51,6 @@ export default function Home() {
     dispatch(getCharacters(axios));
   };
 
-  const changeHandler = () => {
-    dispatch(getNextPageCharacters(axios));
-  };
-
-  const debouncedChangeHandler = useCallback(debounce(changeHandler, 500), []);
-
   const [open, setOpen] = React.useState(false);
   const [loadingNextPage, setLoadingNextPage] = React.useState(false);
   const characters = characterResults.characters ?? [];
@@ -69,7 +63,7 @@ export default function Home() {
         document.body.offsetHeight
       ) {
         if (!characterResults.loadingNextPage) {
-          debouncedChangeHandler();
+          dispatch(getNextPageCharacters(axios));
         }
       }
     };
