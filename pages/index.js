@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PullToRefresh from "../components/PullToRefresh";
 import Character from "../components/Character";
+import LoadingSpinner from "../components/LoadingSpinner";
 import styles from "../styles/Home.module.css";
 import Button from "@mui/material/Button";
 import Image from "next/image";
@@ -47,6 +48,17 @@ export default function Home() {
         <CloseIcon fontSize="small" />
       </IconButton>
     </React.Fragment>
+  );
+
+  const loadingSpinner = (
+    <Image
+      className={styles.loader}
+      priority
+      src="/images/spinner.gif"
+      height={50}
+      width={50}
+      alt="loading spinner"
+    />
   );
 
   const characters = characterResults.characters ?? [];
@@ -97,31 +109,23 @@ export default function Home() {
         <Button onClick={handleClick} variant="contained">
           Reset
         </Button>
-        <div id="test" className={styles.resultsContainer}>
-          <PullToRefresh
-            onRefresh={handleRefresh}
-            loading={characterResults.loading}
-          >
+
+        <div className={styles.resultsContainer}>
+          {characterResults.loading ? <LoadingSpinner /> : null}
+          <PullToRefresh onRefresh={handleRefresh}>
             {characters.map((character, index) => {
               const isLastCellAndLoading =
                 characters.length - 1 === index &&
                 characterResults.loadingNextPage;
-              return isLastCellAndLoading ? (
-                <Image
-                  className={styles.loader}
-                  priority
-                  src="/images/spinner.gif"
-                  height={50}
-                  width={50}
-                  alt="loading spinner"
-                  key={index}
-                />
-              ) : (
+
+              return !isLastCellAndLoading ? (
                 <Character
                   key={index}
                   data={character}
                   id={character.id}
                 ></Character>
+              ) : (
+                <LoadingSpinner />
               );
             })}
           </PullToRefresh>

@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import styles from "./Pullrefresh.module.css";
 
-export default function PullToRefresh({
-  onRefresh,
-  loading,
-  nextPageLoading,
-  children,
-}) {
+export default function PullToRefresh({ onRefresh, children }) {
   const [startPoint, setStartPoint] = useState(0);
   const [pullChange, setPullChange] = useState();
   const [isMouseClicked, setIsMouseClicked] = useState(false);
@@ -73,16 +67,6 @@ export default function PullToRefresh({
 
   return (
     <div>
-      {loading && (
-        <Image
-          className={styles.loader}
-          priority
-          src="/images/spinner.gif"
-          height={50}
-          width={50}
-          alt=""
-        />
-      )}
       <p className={styles.title} style={{ marginTop: pullChange || "0px" }}>
         Pull to load data
       </p>
